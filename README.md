@@ -1,0 +1,1 @@
+日志和代码路径持久化时,需要将/usr/local/tomcat/logs、/usr/local/tomcat/work、/website 挂载宿主机
