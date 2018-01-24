@@ -2,9 +2,9 @@ FROM alpine:3.5
 
 MAINTAINER Shane.Cheng ccniubi@163.com ( http://github.com/kairyou/ )
 
-ENV TOMCAT_VERSION 8.0.44
+ENV TOMCAT_VERSION 8.0.48
 ENV LD_LIBRARY_PATH "/usr/local/apr/lib"
-ENV TOMCAT_PACKAGE_URL "http://mirrors.hust.edu.cn/apache/tomcat/tomcat-8/v8.0.44/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz"
+ENV TOMCAT_PACKAGE_URL "http://mirrors.hust.edu.cn/apache/tomcat/tomcat-8/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz"
 
 
 
@@ -31,11 +31,11 @@ RUN mkdir -p /usr/src && cd /usr/src \
   && mkdir -p /usr/local/tomcat/conf/vhost \
   && mkdir /website \
   && cd /usr/local/tomcat/bin && tar zxf tomcat-native.tar.gz \
-  && cd /usr/local/tomcat/bin/tomcat-native-1.2.12-src/native \
+  && cd /usr/local/tomcat/bin/tomcat-native-*src/native \
   && ./configure --with-java-home=/usr/lib/jvm/java-1.8-openjdk  --with-apr=/usr/bin \
   && make -j && make install \
   && cd /usr/local/tomcat && rm -rf LICENSE NOTICE RELEASE-NOTES RUNNING.txt \
-  && rm -rf /usr/local/tomcat/bin/tomcat-native-1.2.12-src/
+  && rm -rf /usr/local/tomcat/bin/tomcat-native-*src/
 
 
 COPY server.xml /usr/local/tomcat/conf/server.xml
@@ -43,6 +43,8 @@ COPY localhost.xml /usr/local/tomcat/conf/vhost/localhost.xml
 COPY setenv.sh /usr/local/tomcat/bin/setenv.sh
 COPY index.html /website/index.html
 
+RUN chmod 755 /usr/local/tomcat/bin/setenv.sh \
+  && ln -sf /dev/stdout /usr/local/tomcat/logs/catalina.out 
 
 
 #VOLUME ["/usr/local/tomcat/logs","/website"]
