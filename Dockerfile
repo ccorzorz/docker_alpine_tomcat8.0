@@ -2,7 +2,7 @@ FROM alpine:3.5
 
 MAINTAINER Shane.Cheng ccniubi@163.com ( http://github.com/kairyou/ )
 
-ENV TOMCAT_VERSION 8.0.48
+ENV TOMCAT_VERSION 8.0.49
 ENV LD_LIBRARY_PATH "/usr/local/apr/lib"
 ENV TOMCAT_PACKAGE_URL "http://mirrors.hust.edu.cn/apache/tomcat/tomcat-8/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz"
 
